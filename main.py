@@ -182,7 +182,7 @@ def setup_model():
     parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
 
     # Model setting
-    parser.add_argument('--encoder', type=str, default = "ResNext101")
+    parser.add_argument('--encoder', type=str, default = "MobileNetV2")
     parser.add_argument('--pretrained', type=str, default = "KITTI")
     parser.add_argument('--norm', type=str, default = "BN")
     parser.add_argument('--n_Group', type=int, default = 32)
