@@ -64,12 +64,7 @@ async def avoid_obstacle_with_velocity_ned_yaw(drone, block_averages):
         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 1.0, 0.0, 0.0))
         await asyncio.sleep(1)
     else:
-        if max(block_averages['middle']) == all_block_averages['middle'][0]:
-            # 左上方路徑清晰
-            print("Path is clear in the upper left!")
-            await drone.offboard.set_velocity_ned(VelocityNedYaw(1.0, 0.0, 0.4, 0.0))
-            await asyncio.sleep(1)
-        elif all_block_averages['middle'][4] <= all_block_averages['middle'][3]:
+        if all_block_averages['middle'][4] <= all_block_averages['middle'][3]:
             # 左方路徑清晰
             print("Path is clear on the left!")
             await drone.offboard.set_velocity_ned(VelocityNedYaw(1.0, 0.0, 0.0, 0.0))
