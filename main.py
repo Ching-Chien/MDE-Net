@@ -20,7 +20,7 @@ all_block_averages = {'inner': [], 'middle': [], 'outer': []}
 
 async def initialize_drone(drone: System):
     try:
-        await drone.connect(system_address="serial:///dev/ttyUSB_PX4:921600")
+        await drone.connect(system_address="serial:///dev/ttyUSB0:921600")
 
         print("Waiting for drone to connect...")
         async for state in drone.core.connection_state():
