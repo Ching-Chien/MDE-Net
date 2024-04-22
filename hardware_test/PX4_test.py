@@ -1,7 +1,7 @@
 from pymavlink import mavutil
 import time
 
-def connect_pixhawk(port="/dev/ttyUSB_PX4", baudrate=921600):
+def connect_pixhawk(port="/dev/ttyUSB0", baudrate=921600):
     # 建立與Pixhawk的連接
     master = mavutil.mavlink_connection(port, baud=baudrate)
     print(f"連接到Pixhawk在 {port} 以 {baudrate} 波特率")
