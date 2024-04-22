@@ -211,7 +211,7 @@ def setup_model():
     Model = LDRN(args)
     if args.cuda and torch.cuda.is_available():
         Model = Model.cuda()
-    Model = torch.nn.DataParallel(Model)
+    #Model = torch.nn.DataParallel(Model)
     Model.load_state_dict(torch.load(args.model_dir))
     Model.eval()
 
