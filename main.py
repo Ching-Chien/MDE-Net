@@ -80,58 +80,6 @@ async def avoid_obstacle_with_velocity_ned_yaw(drone, block_averages):
             await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
             await asyncio.sleep(1)
 
-    # if block_averages['inner'][0] > 40:
-    #     # 前方路徑清晰
-    #     print("Path is clear in front!")
-    #     await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 1.0, 0.0, 0.0))
-    #     await asyncio.sleep(1)
-    # else:
-    #     if max(block_averages['middle']) == all_block_averages['middle'][0]:
-    #         # 左上方路徑清晰
-    #         print("Path is clear in the upper left!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(1.0, 0.0, 0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][1]:
-    #         # 正上方路徑清晰
-    #         print("Path is clear above!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][2]:
-    #          # 右上方路徑清晰
-    #         print("Path is clear in the upper right!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(-1.0, 0.0, 0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][3]:
-    #         # 左方路徑清晰
-    #         print("Path is clear on the left!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(1.0, 0.0, 0.0, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][4]:
-    #          # 右方路徑清晰
-    #         print("Path is clear on the right!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(-1.0, 0.0, 0.0, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][5]:
-    #         # 左下方路徑清晰
-    #         print("Path is clear in the lower left!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(1.0, 0.0, -0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][6]:
-    #         # 正下方路徑清晰
-    #         print("Path is clear below!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, -0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     elif max(block_averages['middle']) == all_block_averages['middle'][7]:
-    #         # 右下方路徑清晰
-    #         print("Path is clear in the lower right!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(-1.0, 0.0, -0.4, 0.0))
-    #         await asyncio.sleep(1)
-    #     else:
-    #         # 維持固定高度
-    #         print("Maintain at fixed height!")
-    #         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
-    #         await asyncio.sleep(1)
-
 def divide_image_into_blocks(image, num_blocks_x, num_blocks_y):
     h, w = image.shape
     block_height = h // num_blocks_y
