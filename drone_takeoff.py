@@ -23,7 +23,8 @@ async def initialize_drone(drone: System):
         print("-- Taking off")
         await drone.action.set_takeoff_altitude(2)
         await drone.action.takeoff()
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.01)
+        await asyncio.sleep(5)
 
         print("-- Starting offboard")
         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))  # Send an initial setpoint before starting offboard mode
