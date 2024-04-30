@@ -23,14 +23,16 @@ async def initialize_drone(drone: System):
         print("-- Taking off")
         await drone.action.set_takeoff_altitude(2)
         await drone.action.takeoff()
-        await asyncio.sleep(0.01)
         await asyncio.sleep(5)
+        
+        print("-- Hold")
+        await drone.action.hold()
+        await asyncio.sleep(1)
 
-        print("-- Starting offboard")
-        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))  # Send an initial setpoint before starting offboard mode
-        await drone.offboard.start()
-        print("-- Offboard started")
         print("-- Setting initial setpoint")
+        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
+        print("-- Starting offboard")
+        await drone.offboard.start()
     except Exception as e:
         print(f"An error occurred: {e}")
         try:
