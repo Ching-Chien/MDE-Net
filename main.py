@@ -39,12 +39,16 @@ async def initialize_drone(drone: System):
         print("-- Taking off")
         await drone.action.set_takeoff_altitude(2)
         await drone.action.takeoff()
+        await asyncio.sleep(5)
+        
+        print("-- Hold")
+        await drone.action.hold()
         await asyncio.sleep(1)
 
+        print("-- Setting initial setpoint")
+        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
         print("-- Starting offboard")
         await drone.offboard.start()
-        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
-        print("-- Setting initial setpoint")
     except:
         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
         await asyncio.sleep(1)
