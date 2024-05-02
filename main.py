@@ -227,7 +227,8 @@ def process_image_with_model(model, args, frame, frame_count):
     all_block_averages['middle'] = [block_averages[i] for i in [6, 7, 8, 11, 13, 16, 17, 18]]
     all_block_averages['outer'] = [block_averages[i] for i in [0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 21, 22, 23, 24]]
     print(all_block_averages['inner'])
-    
+    print(all_block_averages['middle'][3])
+    print(all_block_averages['middle'][4])
     for i, block in enumerate(blocks):
         block[...] = block_averages[i]
 
