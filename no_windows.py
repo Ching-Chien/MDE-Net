@@ -60,7 +60,7 @@ def setup_model():
     parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
 
     # Model setting
-    parser.add_argument('--encoder', type=str, default = "ResNext101")
+    parser.add_argument('--encoder', type=str, default = "MobileNetV2")
     parser.add_argument('--pretrained', type=str, default = "KITTI")
     parser.add_argument('--norm', type=str, default = "BN")
     parser.add_argument('--n_Group', type=int, default = 32)
@@ -70,7 +70,7 @@ def setup_model():
     parser.add_argument('--lv6', action='store_true', help='use lv6 Laplacian decoder')
 
     # GPU setting
-    parser.add_argument('--cuda', action='store_true')
+    parser.add_argument('--cuda', action='store_true', default = "cuda")
     parser.add_argument('--gpu_num', type=str, default = "0,1,2,3", help='force available gpu index')
     parser.add_argument('--rank', type=int,   help='node rank for distributed training', default=0)
 
@@ -94,7 +94,7 @@ def setup_model():
     Model = LDRN(args)
     if args.cuda and torch.cuda.is_available():
         Model = Model.cuda()
-    Model = torch.nn.DataParallel(Model)
+    #Model = torch.nn.DataParallel(Model)
     Model.load_state_dict(torch.load(args.model_dir))
     Model.eval()
 
@@ -159,9 +159,9 @@ def process_image_with_model(model, args, frame, frame_count):
     all_block_averages['inner'] = [block_averages[12]]
     all_block_averages['middle'] = [block_averages[i] for i in [6, 7, 8, 11, 13, 16, 17, 18]]
     all_block_averages['outer'] = [block_averages[i] for i in [0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 21, 22, 23, 24]]
-    # print(all_block_averages['inner'])
-    # print(all_block_averages['middle'])
-    # print(all_block_averages['outer'])
+    print(all_block_averages['inner'])
+    print(all_block_averages['middle'][3])
+    print(all_block_averages['middle'][4])
     
     for i, block in enumerate(blocks):
         block[...] = block_averages[i]
@@ -226,10 +226,13 @@ def main():
             while True:
                 ret_val, frame = video_capture.read()
                 current_time = time.time()
-                if current_time - start_time >= 15:  # Save frame every 15 seconds
+                if current_time - start_time >= 10:  # Save frame every 15 seconds
                     frame_count += 1
                     result_filename, all_block_averages = process_image_with_model(Model, args, frame, frame_count)
                     # await avoid_obstacle_with_velocity_ned_yaw(drone, all_block_averages)
+                    end_time = time.time()
+                    execution_time = end_time - start_time
+                    print("execution_time",execution_time,"s")
                     start_time = time.time()  # Reset the start time
 
                 keyCode = cv2.waitKey(10) & 0xFF
