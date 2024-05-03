@@ -34,8 +34,8 @@ async def initialize_drone(drone: System):
         print("-- Starting offboard")
         await drone.offboard.start()
 
-        print("-- Moving forward 1 meter")
-        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.1, 0.0, 0.0))
+        print("-- Moving forward 2 meter")
+        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.4, 0.0, 0.0, 0.0))
         await asyncio.sleep(5)
         await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.0, 0.0, 0.0))
         
