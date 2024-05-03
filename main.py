@@ -95,14 +95,6 @@ def divide_image_into_blocks(image, num_blocks_x, num_blocks_y):
             block = image[i * block_height:(i + 1) * block_height, j * block_width:(j + 1) * block_width]
             blocks.append(block)
     return blocks
-
-def draw_grid_lines(ax, num_blocks_x, num_blocks_y, block_height, block_width):
-    for i in range(1, num_blocks_y):
-        y = i * block_height
-        ax.axhline(y=y, color='red', linestyle='--', linewidth=0.5)
-    for j in range(1, num_blocks_x):
-        x = j * block_width
-        ax.axvline(x=x, color='red', linestyle='--', linewidth=0.5)
         
 # 相機截圖的配置
 def gstreamer_pipeline(sensor_id=0, capture_width=1920, capture_height=1080, display_width=960, display_height=540, framerate=30, flip_method=0):
@@ -135,7 +127,7 @@ def setup_model():
     parser.add_argument('--n_Group', type=int, default = 32)
     parser.add_argument('--reduction', type=int, default = 16)
     parser.add_argument('--act', type=str, default = "ReLU")
-    parser.add_argument('--max_depth', default=80.0, type=float, metavar='MaxVal', help='max value of depth')
+    parser.add_argument('--max_depth', default=50.0, type=float, metavar='MaxVal', help='max value of depth')
     parser.add_argument('--lv6', action='store_true', help='use lv6 Laplacian decoder')
 
     # GPU setting
@@ -226,9 +218,9 @@ def process_image_with_model(model, args, frame, frame_count):
     all_block_averages['inner'] = [block_averages[12]]
     all_block_averages['middle'] = [block_averages[i] for i in [6, 7, 8, 11, 13, 16, 17, 18]]
     all_block_averages['outer'] = [block_averages[i] for i in [0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 21, 22, 23, 24]]
-    print("inner:" + all_block_averages['inner'])
-    print("left:" + all_block_averages['middle'][3])
-    print("right:" + all_block_averages['middle'][4])
+    print(all_block_averages['inner'])
+    print(all_block_averages['middle'][3])
+    print(all_block_averages['middle'][4])
     
     for i, block in enumerate(blocks):
         block[...] = block_averages[i]
