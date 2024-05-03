@@ -114,8 +114,6 @@ def setup_model():
 
     # Directory setting 
     parser.add_argument('--model_dir',type=str, default = '')
-    parser.add_argument('--img_dir', type=str, default = None)
-    parser.add_argument('--img_folder_dir', type=str, default= None)
 
     # Dataloader setting
     parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
