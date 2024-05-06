@@ -114,6 +114,8 @@ def setup_model():
 
     # Directory setting 
     parser.add_argument('--model_dir',type=str, default = '')
+    parser.add_argument('--img_dir', type=str, default = None)
+    parser.add_argument('--img_folder_dir', type=str, default= None)
 
     # Dataloader setting
     parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
@@ -211,6 +213,8 @@ def process_image_with_model(model, args, frame, frame_count):
         out = out * 1000.0
     out = out.cpu().detach().numpy().astype(np.uint16)
     out = (out / out.max()) * 80.0
+    test_filename = f'./test/out_{frame_count}.jpg'
+    plt.imsave(test_filename, np.log10(out), cmap='plasma_r')
     blocks = divide_image_into_blocks(out, 5, 5)
     block_averages = [block.mean() for block in blocks]
     all_block_averages['inner'] = [block_averages[12]]
@@ -265,3 +269,4 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(asyncio.gather(main()))
+    # loop.run_until_complete(run())
