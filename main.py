@@ -65,19 +65,19 @@ async def avoid_obstacle_with_velocity_ned_yaw(drone, block_averages):
     if block_averages['inner'][0] > 40:
         # 前方路徑清晰
         print("Path is clear in front!")
-        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.4, 0.0, 0.0, 0.0))
-        await asyncio.sleep(5)
+        await drone.offboard.set_velocity_ned(VelocityNedYaw(0.2, 0.0, 0.0, 0.0))
+        await asyncio.sleep(10)
     else:
         if all_block_averages['middle'][4] <= all_block_averages['middle'][3]:
             # 左方路徑清晰
             print("Path is clear on the left!")
-            await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, -0.4, 0.0, 0.0))
-            await asyncio.sleep(5)
+            await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, -0.2, 0.0, 0.0))
+            await asyncio.sleep(10)
         elif all_block_averages['middle'][3] <= all_block_averages['middle'][4]:
              # 右方路徑清晰
             print("Path is clear on the right!")
-            await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.4, 0.0, 0.0))
-            await asyncio.sleep(5)
+            await drone.offboard.set_velocity_ned(VelocityNedYaw(0.0, 0.2, 0.0, 0.0))
+            await asyncio.sleep(10)
         else:
             # 維持固定高度
             print("Maintain at fixed height!")
