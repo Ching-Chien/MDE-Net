@@ -39,7 +39,7 @@ async def initialize_drone(drone: System):
         print("-- Taking off")
         await drone.action.set_takeoff_altitude(1)
         await drone.action.takeoff()
-        await asyncio.sleep(5)
+        await asyncio.sleep(4)
         
         print("-- Hold")
         await drone.action.hold()
